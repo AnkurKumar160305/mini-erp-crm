@@ -1,5 +1,6 @@
 import React from 'react';
 import { useQuery } from '@tanstack/react-query';
+import { motion } from 'framer-motion';
 import { 
   Users, 
   Package, 
@@ -69,14 +70,38 @@ export function Dashboard() {
 
   return (
     <div className="space-y-6">
-      <div>
+      <motion.div 
+        initial={{ opacity: 0, y: -20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.4 }}
+      >
         <h1 className="text-2xl font-bold tracking-tight text-slate-900">Dashboard</h1>
         <p className="text-sm text-slate-500">Overview of your business metrics</p>
-      </div>
+      </motion.div>
 
-      <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+      <motion.div 
+        className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4"
+        variants={{
+          hidden: { opacity: 0 },
+          show: {
+            opacity: 1,
+            transition: { staggerChildren: 0.1 }
+          }
+        }}
+        initial="hidden"
+        animate="show"
+      >
         {stats.map((stat, index) => (
-          <Card key={index}>
+          <motion.div 
+            key={index}
+            variants={{
+              hidden: { opacity: 0, y: 20 },
+              show: { opacity: 1, y: 0 }
+            }}
+            whileHover={{ scale: 1.02 }}
+            transition={{ type: 'spring', stiffness: 300, damping: 20 }}
+          >
+            <Card className="h-full">
             <CardContent className="p-6">
               <div className="flex items-center justify-between space-x-4">
                 <div className="flex flex-col">
@@ -88,11 +113,17 @@ export function Dashboard() {
                 </div>
               </div>
             </CardContent>
-          </Card>
+            </Card>
+          </motion.div>
         ))}
-      </div>
+      </motion.div>
 
-      <div className="grid gap-4 lg:grid-cols-7">
+      <motion.div 
+        className="grid gap-4 lg:grid-cols-7"
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5, delay: 0.2 }}
+      >
         <Card className="lg:col-span-4">
           <CardHeader>
             <CardTitle>Challan Trend</CardTitle>
@@ -126,40 +157,47 @@ export function Dashboard() {
             <CardDescription>By customer type</CardDescription>
           </CardHeader>
           <CardContent>
-            <div className="h-[300px] w-full">
-              <ResponsiveContainer width="100%" height="100%">
-                <PieChart>
-                  <Pie
-                    data={chartsData.customerDistribution}
-                    cx="50%"
-                    cy="50%"
-                    innerRadius={60}
-                    outerRadius={90}
-                    paddingAngle={2}
-                    dataKey="value"
-                  >
-                    {chartsData.customerDistribution.map((_: any, index: number) => (
-                      <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
-                    ))}
-                  </Pie>
-                  <RechartsTooltip />
-                </PieChart>
-              </ResponsiveContainer>
-              <div className="flex justify-center gap-4 text-sm mt-4">
+            <div className="h-[320px] w-full flex flex-col">
+              <div className="flex-1 w-full min-h-0">
+                <ResponsiveContainer width="100%" height="100%">
+                  <PieChart>
+                    <Pie
+                      data={chartsData.customerDistribution}
+                      cx="50%"
+                      cy="50%"
+                      innerRadius={60}
+                      outerRadius={90}
+                      paddingAngle={2}
+                      dataKey="value"
+                    >
+                      {chartsData.customerDistribution.map((_: any, index: number) => (
+                        <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
+                      ))}
+                    </Pie>
+                    <RechartsTooltip />
+                  </PieChart>
+                </ResponsiveContainer>
+              </div>
+              <div className="flex justify-center gap-4 text-sm mt-4 shrink-0 pb-2">
                 {chartsData.customerDistribution.map((entry: any, index: number) => (
                   <div key={entry.name} className="flex items-center gap-1.5">
-                    <div className="h-3 w-3 rounded-full" style={{ backgroundColor: COLORS[index % COLORS.length] }}></div>
-                    <span className="text-slate-600">{entry.name}</span>
+                    <div className="h-3 w-3 rounded-full shadow-sm" style={{ backgroundColor: COLORS[index % COLORS.length] }}></div>
+                    <span className="text-slate-600 font-medium">{entry.name}</span>
                   </div>
                 ))}
               </div>
             </div>
           </CardContent>
         </Card>
-      </div>
+      </motion.div>
 
       {chartsData.recentActivity.length > 0 && (
-        <Card>
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: 0.4 }}
+        >
+          <Card>
           <CardHeader>
             <CardTitle>Recent Activity</CardTitle>
             <CardDescription>Latest stock movements</CardDescription>
@@ -186,7 +224,8 @@ export function Dashboard() {
               ))}
             </div>
           </CardContent>
-        </Card>
+          </Card>
+        </motion.div>
       )}
     </div>
   );

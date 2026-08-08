@@ -11,10 +11,10 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
   ({ className, variant = 'primary', size = 'md', isLoading, children, disabled, ...props }, ref) => {
     
     const variants = {
-      primary: 'bg-primary-600 text-white hover:bg-primary-700 shadow-sm disabled:bg-primary-400',
-      secondary: 'bg-white text-slate-700 border border-slate-300 hover:bg-slate-50 shadow-sm disabled:bg-slate-50',
-      danger: 'bg-error-600 text-white hover:bg-error-700 shadow-sm disabled:bg-error-400',
-      ghost: 'bg-transparent text-slate-700 hover:bg-slate-100 disabled:bg-transparent',
+      primary: 'bg-primary-600 text-white shadow-md shadow-primary-500/20 hover:bg-primary-700 hover:shadow-lg hover:shadow-primary-500/30 hover:-translate-y-0.5 active:translate-y-0 active:shadow-sm disabled:bg-primary-400 disabled:translate-y-0',
+      secondary: 'bg-white/80 backdrop-blur-sm text-slate-700 border border-slate-200 shadow-sm hover:bg-slate-50 hover:text-slate-900 hover:shadow hover:-translate-y-0.5 active:translate-y-0 disabled:bg-slate-50 disabled:translate-y-0',
+      danger: 'bg-error-600 text-white shadow-md shadow-error-500/20 hover:bg-error-700 hover:shadow-lg hover:shadow-error-500/30 hover:-translate-y-0.5 active:translate-y-0 disabled:bg-error-400 disabled:translate-y-0',
+      ghost: 'bg-transparent text-slate-700 hover:bg-slate-100 hover:-translate-y-0.5 active:translate-y-0 disabled:bg-transparent disabled:translate-y-0',
     };
 
     const sizes = {
@@ -28,7 +28,7 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
         ref={ref}
         disabled={disabled || isLoading}
         className={cn(
-          'inline-flex items-center justify-center rounded-md font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50',
+          'inline-flex items-center justify-center rounded-lg font-medium transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50',
           variants[variant],
           sizes[size],
           className

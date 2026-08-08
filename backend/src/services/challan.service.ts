@@ -249,7 +249,7 @@ export class ChallanService {
       });
 
       return confirmedChallan;
-    });
+    }, { maxWait: 10000, timeout: 30000 });
   }
 
   /**
@@ -306,7 +306,7 @@ export class ChallanService {
       });
 
       return cancelledChallan;
-    });
+    }, { maxWait: 10000, timeout: 30000 });
   }
 }
 
