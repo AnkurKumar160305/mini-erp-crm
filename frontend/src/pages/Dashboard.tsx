@@ -52,6 +52,10 @@ export function Dashboard() {
     );
   }
 
+  if (!statsData || !chartsData) {
+    return null;
+  }
+
   const stats = [
     { title: 'Total Customers', value: statsData.totalCustomers, icon: Users, color: 'text-blue-500', bg: 'bg-blue-50' },
     { title: 'Active Customers', value: statsData.activeCustomers, icon: CheckCircle, color: 'text-green-500', bg: 'bg-green-50' },

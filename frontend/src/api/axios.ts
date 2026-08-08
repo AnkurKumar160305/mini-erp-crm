@@ -22,7 +22,8 @@ api.interceptors.response.use(
     // However, we avoid circular dependencies by doing this carefully or handling it in the query client
     if (error.response?.status === 401) {
       localStorage.removeItem('token');
-      // window.location.href = '/login'; // Optional: redirect on 401
+      localStorage.removeItem('auth-storage');
+      window.location.href = '/login';
     }
     return Promise.reject(error);
   }
