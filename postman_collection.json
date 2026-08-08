@@ -1,0 +1,75 @@
+{
+  "info": {
+    "name": "Mini ERP + CRM API",
+    "description": "Postman collection for the Mini ERP + CRM API.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Auth",
+      "item": [
+        {
+          "name": "Login",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"admin@example.com\",\n  \"password\": \"Password123!\"\n}"
+            },
+            "url": {
+              "raw": "{{API_URL}}/auth/login",
+              "host": ["{{API_URL}}"],
+              "path": ["auth", "login"]
+            }
+          }
+        },
+        {
+          "name": "Get Me",
+          "request": {
+            "method": "GET",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{TOKEN}}" }
+            ],
+            "url": {
+              "raw": "{{API_URL}}/auth/me",
+              "host": ["{{API_URL}}"],
+              "path": ["auth", "me"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Customers",
+      "item": [
+        {
+          "name": "List Customers",
+          "request": {
+            "method": "GET",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{TOKEN}}" }
+            ],
+            "url": {
+              "raw": "{{API_URL}}/customers",
+              "host": ["{{API_URL}}"],
+              "path": ["customers"]
+            }
+          }
+        }
+      ]
+    }
+  ],
+  "variable": [
+    {
+      "key": "API_URL",
+      "value": "http://localhost:5000/api/v1"
+    },
+    {
+      "key": "TOKEN",
+      "value": ""
+    }
+  ]
+}
